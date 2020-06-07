@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Login SIG Cheaptickets</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'plugins/adminlte.min.css' %}">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- Estilo -->
+  <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+</head>
+<body class="hold-transition login-page" id="loginbody">
+
+<div class="login-box">
+  <div class="login-logo">
+    <a href="#" class="text-white"><b>SIG</b> Cheaptickets</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <h5 class="login-box-msg">Iniciar Sesión</h5>
+
+      <form action="{% url 'inicio' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <input type="text" name="" id="" class="form-control" placeholder="Usuario" value="" required="true">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" name="" id="" class="form-control" placeholder="Contraseña" required="true">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Mensajes 
+        <?php if(!empty(session()->getFlashData('error'))) : ?>
+          <div class="col-12">
+            <div class="alert alert-danger" role="alert">
+              <?= session()->getFlashData('error') ?>
+            </div>
+          </div>
+        <?php endif ?>
+        <?php if(!empty(session()->getFlashData('adios'))) : ?>
+          <div class="col-12">
+            <div class="alert alert-success" role="success">
+              <?= session()->getFlashData('adios') ?>
+            </div>
+          </div>
+        <?php endif ?>
+         Fin Mensajes-->
+
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Recuérdame
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Log in</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+
+      <p class="mb-1">
+        <a href="#">Olvidé mi contraseña</a>
+      </p>
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'plugins/adminlte.min.js' %}"></script>
+
+</body>
+</html>
