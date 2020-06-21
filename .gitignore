@@ -117,3 +117,6 @@ GitHub.sublime-settings
 
 #Settings: para personalizar la base de datos
 proyectoSIG/settings.py
+
+#Ignorar las migraciones a la bd
+control_impactos/migrations/
