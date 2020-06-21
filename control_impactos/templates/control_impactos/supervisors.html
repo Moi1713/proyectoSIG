@@ -1,0 +1,37 @@
+{%  extends 'plantilla/main.html' %}
+
+{% block content %}
+
+		<br>
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card card-body">
+					<h5>Supervisores <a class="btn btn-info" href="{% url 'pdf_view' 'supervisor' %}" target="_blank">Ver PDF</a> 
+					<a class="btn btn-info"  href="{% url 'pdf_download' 'supervisor' %}">Descargar PDF</a> </h5>
+					
+				</div>
+				
+				<div class="card card-body">
+					<table class="table">
+						<tr>
+							<th>SALID</th>
+							<th>Nombre</th>
+							<th>Team_Name</th>
+						</tr>
+						
+						{% for supervisor in supervisors %}
+						<tr>
+							<td>{{ supervisor.SALID }}</td>
+							<td>{{ supervisor.Nombre }}</td>
+							<td>{{ supervisor.Team_Name }}</td>
+						</tr>
+						{% endfor %}
+
+					</table>
+				</div>
+			</div>
+			
+		</div>
+
+{% endblock content %}
