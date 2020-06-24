@@ -16,7 +16,7 @@
           <img src="{% static 'img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="Img">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Usuario</a>
+          <a href="#" class="d-block">{{ request.user }}</a>
         </div>
       </div>
 
@@ -98,7 +98,7 @@
           </li>
 
           <li class="nav-item has-treeview">
-            <a href="{% url 'login' %}" class="nav-link">
+            <a href="{% url 'logout' %}" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
                 Salir 

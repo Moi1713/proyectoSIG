@@ -1,16 +1,38 @@
-from django.shortcuts import render
-from .models import *
-
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
+#import para modelos
+from .models import *
+
+#import para login y logout
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+
+#import para generar reportes
 from io import BytesIO
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 
 # Create your views here.
 
-def login(request):
+def loginPage(request):
+	if request.method == 'POST':
+		username = request.POST.get('usuario')
+		password = request.POST.get('contrasenia')
+		user = authenticate(request, username=username, password=password)
+		if user is not None:
+			login(request, user)
+			return redirect('inicio')
+		else:
+			messages.info(request, 'Usuario o contraseña incorrectos')
+			return render(request, 'login.html')
+
 	return render(request, 'login.html')
+
+def logoutUser(request):
+	logout(request)
+	messages.info(request, 'Gracias. Lo esperamos nuevamente.')
+	return redirect('login')
 
 def inicio(request):
 	return render(request, 'control_impactos/index.html')
