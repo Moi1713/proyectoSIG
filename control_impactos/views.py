@@ -8,6 +8,9 @@ from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
+#import de decorators para permisos
+from django.contrib.auth.decorators import login_required
+
 #import para generar reportes
 from io import BytesIO
 from django.template.loader import get_template
@@ -34,12 +37,13 @@ def logoutUser(request):
 	messages.info(request, 'Gracias. Lo esperamos nuevamente.')
 	return redirect('login')
 
+@login_required(login_url='login')
 def inicio(request):
 	return render(request, 'control_impactos/index.html')
 
 def supervisors(request):
 	supervisors = Supervisor.objects.all()
-	return render(request, 'control_impactos/supervisors.html', { "supervisors":supervisors})
+	return render(request, 'control_impactos/supervisors.html', { "supervisors":supervisors })
 
 #Generacion de Reportes
 def render_to_pdf(template_src, context_dict={}):
