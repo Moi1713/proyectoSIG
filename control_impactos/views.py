@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 from io import BytesIO
 from django.template.loader import get_template
 from xhtml2pdf import pisa
+import psycopg2
 
 # Create your views here.
 
@@ -45,6 +46,12 @@ def supervisors(request):
 	supervisors = Supervisor.objects.all()
 	return render(request, 'control_impactos/supervisors.html', { "supervisors":supervisors })
 
+def desempenio(request):
+	empleados = Empleado.objects.all()
+	teamManagers = TeamManager.objects.all()
+	surveys = Survey.objects.all()
+	return render(request, 'control_impactos/desempenio.html', { "surveys":surveys })
+
 #Generacion de Reportes
 def render_to_pdf(template_src, context_dict={}):
 	template = get_template(template_src)
@@ -69,3 +76,8 @@ def ViewPDF(request, type):
 		supervisors = Supervisor.objects.all()
 		pdf = render_to_pdf('reportes/supervisor_rep.html', {"supervisors":supervisors})
 		return HttpResponse(pdf, content_type='application/pdf')
+	else:
+		if(type == 'desempenio'):
+			surveys = Survey.objects.all()
+			pdf = render_to_pdf('reportes/desempenio_rep.html', {"surveys":surveys})
+			return HttpResponse(pdf, content_type='application/pdf')

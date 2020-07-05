@@ -1,0 +1,45 @@
+{%  extends 'plantilla/main.html' %}
+
+{% block content %}
+
+		<br>
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card card-body">
+					<h1><strong>SIG CHEAPTICKETS</strong></h1>
+
+					<br>
+					<h3>Porcentaje diario de impacto de desempeño por COVID-19</h3>
+
+					<br>
+					<h4>Generado el </h4>
+					<br>
+					<a class="btn" href="">Regresar</a>
+					<a class="btn" href="{% url 'pdf_download' 'desempenio' %}">Imprimir</a>
+				</div>
+
+				<div class="card card-body">
+					<table class="table">
+						<tr>
+							<th>Equipo</th>
+							<th>Cantidad Encuestas</th>
+							<th>DSAT</th>
+							<th>DSAT%</th>
+						</tr>
+						{% for impacto in impactos %}
+						<tr>
+							<td>{{ impacto.teamName }}</td>
+							<td>{{ impacto.cantidadEncuestas }}</td>
+							<td>{{ impacto.surveyType }}</td>
+							<td>{{ impacto.porcentajeDsat }}</td>
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+			
+		</div>
+		
+
+{% endblock content %}
