@@ -50,6 +50,9 @@ def desempenio(request):
 	
 	return render(request, 'control_impactos/desempenio.html')
 
+def entrada_parametro(request):
+ 	return render(request, 'control_impactos/entrada_estrategico.html') 
+
 #Generacion de Reportes
 def render_to_pdf(template_src, context_dict={}):
 	template = get_template(template_src)
