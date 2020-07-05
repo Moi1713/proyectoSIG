@@ -47,10 +47,8 @@ def supervisors(request):
 	return render(request, 'control_impactos/supervisors.html', { "supervisors":supervisors })
 
 def desempenio(request):
-	empleados = Empleado.objects.all()
-	teamManagers = TeamManager.objects.all()
-	surveys = Survey.objects.all()
-	return render(request, 'control_impactos/desempenio.html', { "surveys":surveys })
+	
+	return render(request, 'control_impactos/desempenio.html')
 
 #Generacion de Reportes
 def render_to_pdf(template_src, context_dict={}):
@@ -78,6 +76,6 @@ def ViewPDF(request, type):
 		return HttpResponse(pdf, content_type='application/pdf')
 	else:
 		if(type == 'desempenio'):
-			surveys = Survey.objects.all()
-			pdf = render_to_pdf('reportes/desempenio_rep.html', {"surveys":surveys})
+			
+			pdf = render_to_pdf('reportes/desempenio_rep.html')
 			return HttpResponse(pdf, content_type='application/pdf')
