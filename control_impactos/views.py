@@ -17,6 +17,9 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 import psycopg2
 
+#import para raw queries
+from django.db import connection
+
 # Create your views here.
 
 def loginPage(request):
@@ -38,6 +41,7 @@ def logoutUser(request):
 	messages.info(request, 'Gracias. Lo esperamos nuevamente.')
 	return redirect('login')
 
+#Pantallas del sistema
 @login_required(login_url='login')
 def inicio(request):
 	return render(request, 'control_impactos/index.html')
@@ -53,6 +57,19 @@ def desempenio(request):
 def entrada_parametro(request):
  	return render(request, 'control_impactos/entrada_estrategico.html') 
 
+def rendimiento(request):
+	#consulta
+	return render(request, 'control_impactos/tact_rend_prod.html', { "supervisors":supervisors })
+
+#convierte los resultados a Diccionario
+def dictfetchall(cursor):
+    "Return all rows from a cursor as a dict"
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
+
 #Generacion de Reportes
 def render_to_pdf(template_src, context_dict={}):
 	template = get_template(template_src)
@@ -66,7 +83,7 @@ def render_to_pdf(template_src, context_dict={}):
 #Descarga de Reportes
 def DownloadPDF(request, type):
 	response = ViewPDF(request, type)
-	filename = "%s_List.pdf" %(type)
+	filename = "reporte_%s.pdf" %(type)
 	content = "attachment; filename='%s'" %(filename)
 	response['Content-Disposition'] = content
 	return response
@@ -77,8 +94,14 @@ def ViewPDF(request, type):
 		supervisors = Supervisor.objects.all()
 		pdf = render_to_pdf('reportes/supervisor_rep.html', {"supervisors":supervisors})
 		return HttpResponse(pdf, content_type='application/pdf')
+
 	else:
 		if(type == 'desempenio'):
 			
 			pdf = render_to_pdf('reportes/desempenio_rep.html')
 			return HttpResponse(pdf, content_type='application/pdf')
+
+		if(type == 'rendimiento'):
+			pdf = render_to_pdf('reportes/tactico_rend_prod.html')
+			return HttpResponse(pdf, content_type='application/pdf')
+
