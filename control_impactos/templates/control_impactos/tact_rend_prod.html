@@ -1,0 +1,175 @@
+{%  extends 'plantilla/main.html' %}
+
+{% block content %}
+
+		<br>
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card card-body">
+						<h4>Datos de Entrada</h4>
+						<br>
+						<form>
+						  <div class="form-group">
+						    <label>Desde:</label>
+		                   	<div class="input-group date" id="fechainicio" data-target-input="nearest">
+		                        <input name="fecha_inicio" id="fecha_inicio"  type="text" class="form-control datetimepicker-input" data-target="#fechainicio" placeholder="aaaa-mm-dd">
+		                        <div class="invalid-feedback" style="display:none">
+		                            Fecha invalida: <strong>Fecha llevar el formato: aaaa-mm-dd</strong>
+		                        </div>
+		                        <div class="input-group-append" data-target="#fechainicio" data-toggle="datetimepicker">
+		                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+		                        </div>
+		                    </div>
+
+		                    <label>Hasta</label>
+		                    <div class="input-group date" id="fechafin" data-target-input="nearest">
+		                        <input name="fecha_fin" id="fecha_fin"  type="text" class="form-control datetimepicker-input" data-target="#fechafin" placeholder="aaaa-mm-dd">
+		                        <div class="invalid-feedback" style="display:none">
+		                            Fecha invalida: <strong>Fecha llevar el formato: aaaa-mm-dd</strong>
+		                        </div>
+		                        <div class="input-group-append" data-target="#fechafin" data-toggle="datetimepicker">
+		                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+		                        </div>
+		                    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="exampleFormControlSelect1">Jefe de Equipo</label>
+						    <select class="form-control" id="exampleFormControlSelect1">
+						    	<option>--Todos--</option>
+						      <option>John Doe</option>
+						      <option>Mary Martens</option>
+						      <option>Ludwig Schneider</option>
+						      <option>Mario López</option>
+						      <option>Steven Kuffner</option>
+						    </select>
+						  </div>
+						  <button type="submit" class="btn btn-primary">Generar</button>
+						</form>
+					
+					
+				</div>
+				
+				<div class="card card-body table-responsive">
+					<div class="row">
+						<div class="col col-md-6">
+							<h5><a class="btn btn-info" href="{% url 'pdf_view' 'rendimiento' %}" target="_blank">Ver PDF</a></h5>
+						</div>
+						<div class="col col-md-6">
+							<h5><a class="btn btn-info"  href="{% url 'pdf_download' 'rendimiento' %}">Descargar PDF</a> </h5>
+						</div>
+					</div>
+					<hr>
+					<table class="table table-bordered">
+						<thead>
+					        <tr>
+					          <td style="border-width: 0"> </td>
+					          <td style="border-width: 0"> </td>
+					          <th colspan="6" style="text-align: center"> Tipo de Producto </th>
+					        </tr>
+					        <tr>
+					          <td style="border-width: 0"> </td>
+					          <td style="border-width: 0"> </td>
+					          <th colspan="2" style="text-align: center">Viajes</th>
+					          <th colspan="2" style="text-align: center">Hoteles</th>
+					          <th colspan="2" style="text-align: center">Paquetes/Otros</th>
+					        </tr>
+					        <tr>
+					          <td style="border-width: 0">  </td>
+					          <th>Jefe Equipo</th>
+					          <th>Volumen</th>
+					          <th>DSAT%</th>
+					          <th>Volumen</th>
+					          <th>DSAT%</th>
+					          <th>Volumen</th>
+					          <th>DSAT%</th>
+					        </tr>
+					     </thead>
+						
+						<tbody>
+        
+				        <!--Ciclo COVID -->
+				          <tr>
+				            <td rowspan="3"> COVID </td>
+				            <td>John Doe</td>
+				            <td>30</td>
+				            <td>16.6%</td>
+				            <td>40</td>
+				            <td>25%</td>
+				            <td>75</td>
+				            <td>20%</td>
+				          </tr>
+
+				          <tr>
+				            <td>Ludwig Schneider</td>
+				            <td>60</td>
+				            <td>20%</td>
+				            <td>10</td>
+				            <td>33.3%</td>
+				            <td>46</td>
+				            <td>11%</td>
+				          </tr>
+
+				          <tr>
+				            <td>Mary Martens</td>
+				            <td>65</td>
+				            <td>24.5%</td>
+				            <td>26</td>
+				            <td>34.6%</td>
+				            <td>38</td>
+				            <td>13.1%</td>
+				          </tr>
+
+				          <!--Ciclo NO COVID -->
+
+				          <tr>
+				            <td rowspan="3"> NO COVID </td>
+				            <td>John Doe</td>
+				            <td>50</td>
+				            <td>20%</td>
+				            <td>32</td>
+				            <td>12.5%</td>
+				            <td>44</td>
+				            <td>25%</td>
+				          </tr>
+
+				          <tr>
+				            <td>Ludwig Schneider</td>
+				            <td>34</td>
+				            <td>20.5%</td>
+				            <td>30</td>
+				            <td>20%</td>
+				            <td>70</td>
+				            <td>10%</td>
+				          </tr>
+
+				          <tr>
+				            <td>Mary Martens</td>
+				            <td>80</td>
+				            <td>30%</td>
+				            <td>15</td>
+				            <td>6.7%</td>
+				            <td>24</td>
+				            <td>12.5%</td>
+				          </tr>
+
+				          <!-- fin Ciclo-->
+				          <tr>
+				            <th colspan="2" style="text-align: center"><strong>Total</strong></th>
+				            <th>319</th>
+				            <th>23.1%</th>
+				            <th>153</th>
+				            <th>21.6%</th>
+				            <th>297</th>
+				            <th>15.5%%</th>
+				          </tr>
+				        
+				     	</tbody>
+
+					</table>
+				</div>
+			</div>
+			
+		</div>
+
+{% endblock content %}
