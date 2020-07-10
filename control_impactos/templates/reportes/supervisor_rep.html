@@ -69,16 +69,16 @@
      <thead>
         <tr>
           <th>SALID</th>
-          <th>Nombre</th>
-          <th>Team Name</th>
+          <th>Supervisor</th>
+          <th>Team Manager</th>
         </tr>
      </thead>
      <tbody>
         {% for supervisor in supervisors %}
           <tr>
-            <td>{{ supervisor.salId }}</td>
-            <td>{{ supervisor.nombre }}</td>
-            <td>{{ supervisor.teamName }}</td>
+            <td>{{ supervisor.salid }}</td>
+            <td>{{ supervisor.sup_nombre }}</td>
+            <td>{{ supervisor.tm_nombre }}</td>
           </tr>
         {% endfor %}
      </tbody>

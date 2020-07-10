@@ -17,7 +17,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 import psycopg2
 
-#import para raw queries
+#import para crear raw queries
 from django.db import connection
 
 # Create your views here.
@@ -47,7 +47,7 @@ def inicio(request):
 	return render(request, 'control_impactos/index.html')
 
 def supervisors(request):
-	supervisors = Supervisor.objects.all()
+	supervisors = ObtSupervisors()
 	return render(request, 'control_impactos/supervisors.html', { "supervisors":supervisors })
 
 def desempenio(request):
@@ -58,7 +58,7 @@ def entrada_parametro(request):
  	return render(request, 'control_impactos/entrada_estrategico.html') 
 
 def rendimiento(request):
-	#consulta
+	
 	return render(request, 'control_impactos/tact_rend_prod.html', { "supervisors":supervisors })
 
 #convierte los resultados a Diccionario
@@ -91,17 +91,27 @@ def DownloadPDF(request, type):
 #Obtencion de datos y seleccion de plantilla para el reporte
 def ViewPDF(request, type):
 	if(type == 'supervisor'):
-		supervisors = Supervisor.objects.all()
+		supervisors = ObtSupervisors()
 		pdf = render_to_pdf('reportes/supervisor_rep.html', {"supervisors":supervisors})
 		return HttpResponse(pdf, content_type='application/pdf')
 
-	else:
-		if(type == 'desempenio'):
-			
+	elif(type == 'desempenio'):
 			pdf = render_to_pdf('reportes/desempenio_rep.html')
 			return HttpResponse(pdf, content_type='application/pdf')
 
-		if(type == 'rendimiento'):
+	elif(type == 'rendimiento'):
 			pdf = render_to_pdf('reportes/tactico_rend_prod.html')
 			return HttpResponse(pdf, content_type='application/pdf')
+
+#Consultas
+def ObtSupervisors():
+	with connection.cursor() as cursor:
+		cursor.execute('''SELECT control_impactos_supervisor.salid, 
+			control_impactos_supervisor.nombre AS sup_nombre, 
+			control_impactos_supervisor.teamname, 
+			control_impactos_teammanager.nombre AS tm_nombre
+			FROM control_impactos_supervisor INNER JOIN control_impactos_teammanager
+			ON control_impactos_supervisor.teamname = control_impactos_teammanager.teamname''')
+		supervisors = dictfetchall(cursor)
+	return supervisors
 
